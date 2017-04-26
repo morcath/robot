@@ -1,0 +1,96 @@
+	START;
+	"skręt w lewo"
+	mR.run_to_rel_pos
+	(position_sp=325, speed_sp=80)			
+	msen.run_to_abs_pos
+	(position_sp=90, speed_sp=80);
+
+	"podjeżdza trochę do przodu"
+	mR.run_to_rel_pos
+	(position_sp=180, speed_sp=80)	
+	mL.run_to_rel_pos
+	(position_sp=180, speed_sp=80);
+
+
+
+	while (ifs.value() < 30){
+		"dopóki widzi przeszkodę jedzie"
+		mR.run_to_rel_pos
+		(position_sp=45, speed_sp=80)		
+		mL.run_to_rel_pos
+		(position_sp=45, speed_sp=80)
+}
+	out = False;
+	
+
+
+	while (out == False)	{"skręt w prawo"
+		mL.run_to_rel_pos
+		(position_sp=280, speed_sp=80)			
+		mR.run_to_rel_pos
+		(position_sp=-40, speed_sp=80);
+		while ("running" in (mR.state or mL.state)
+		{
+			if (csP.reflected_light_intensity 
+			< backgroundColor 
+			or csL.reflected_light_intensity 
+			< backgroundColor)
+				{msen.run_to_abs_pos
+				(position_sp=0, speed_sp=80)
+			
+				print("!")
+				out = True
+				break}
+		}
+		while (ifs.value() > 30 
+		and out == False){
+		  "podjeżdża, żeby zobaczyć przeszkodę"
+			mR.run_to_rel_pos
+			(position_sp=90, speed_sp=80)		
+			mL.run_to_rel_pos
+			(position_sp=90, speed_sp=80);
+			if (csP.reflected_light_intensity 
+			< backgroundColor 
+			or csL.reflected_light_intensity 
+			< backgroundColor)
+				msen.run_to_abs_pos
+				(position_sp=0, speed_sp=80)
+
+				print("!")
+				out = True
+				break;
+		}
+
+		while (ifs.value() < 30 
+		and out == False){
+			mR.run_to_rel_pos(position_sp=45, speed_sp=80)
+			mL.run_to_rel_pos(position_sp=45, speed_sp=80);
+
+			if (csP.reflected_light_intensity 
+			< backgroundColor 
+			or csL.reflected_light_intensity 
+			< backgroundColor){
+				msen.run_to_abs_pos
+				(position_sp=0, speed_sp=80)
+				print("!")
+				out = True
+				break
+			}
+		}
+		if (out)
+			break;
+
+		print("Wszedl?")
+		mR.run_to_rel_pos
+		(position_sp=270, speed_sp=80)			
+		mL.run_to_rel_pos
+		(position_sp=270, speed_sp=80);
+
+		
+	}
+
+
+	while (csP.reflected_light_intensity >
+	backgroundColor)	
+		mR.run_timed(time_sp=100, speed_sp=250);
+		END
