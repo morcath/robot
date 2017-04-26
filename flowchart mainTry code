@@ -1,0 +1,58 @@
+START;
+#----------------------------------
+	direction = "l";	
+	while (True){
+		
+		pomiary()
+		findObstacle();
+
+		if (csP.reflected_light_intensity 
+		< backgroundColor 
+		reflected_light_intensity 
+		< backgroundColor){
+		        tmpColor = 
+		        (csL.reflected_light_intensity - 
+		        csP.reflected_light_intensity);
+		             
+		        error = -tmpColor
+		        proportional =  kp * error
+		        integral =  ki * error + 0.75 * integral
+		        derivative =  kd *(error - lastError)
+		        lastError = error;
+
+
+		        speedDifference = proportional + integral + derivative;
+		        if (speedDifference > maxSpeed){
+		            speedDifference = maxSpeed
+		            maxSpeeds.append(time.clock()-maxSpeeds[-1])}
+		        else {if( speedDifference < -maxSpeed)
+		            speedDifference = -maxSpeed;
+}
+		        if (speedDifference > 0) 
+		 {           set_motors(nominalSpeed
+		            +speedDifference,nominalSpeed)
+		            direction = "r"
+		}
+		        else
+		            set_motors(nominalSpeed,
+		            nominalSpeed-speedDifference)
+		            direction = "l"
+		            ;
+		  
+		}
+		else{
+		        if (direction == 'r') {
+		            set_motors(maxSpeed,
+		            -maxSpeed*0.85)
+		            direction = "r"
+		   		}
+		        else{ 
+		            set_motors(-maxSpeed*0.85,
+		            maxSpeed)
+		            direction = "l"
+		            }
+           }
+
+
+		time.sleep(0.01)
+	}	
